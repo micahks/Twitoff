@@ -18,11 +18,13 @@ def create_app():
 
     # initilizing database
     DB.init_app(app)
+    
 
     # decorator listens for specific endpoint visits
     @app.route('/')  # http://127.0.0.1:5000/
     def root():
         # renders base.html template and passes down title and users
+        DB.create_all()
         return render_template('base.html', title="Home", users=User.query.all())
 
     @app.route('/compare', methods=["POST"]) # http://127.0.0.1:5000/compare
